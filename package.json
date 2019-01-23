@@ -1,0 +1,43 @@
+{
+	"name": "babel-plugin-remove-ungap",
+	"version": "0.1.0",
+	"description": "Remove @ungap ponyfills",
+	"main": "index.js",
+	"scripts": {
+		"test": "xo && nyc ava -v"
+	},
+	"engines": {
+		"node": ">=8"
+	},
+	"author": "Corey Farrell",
+	"license": "MIT",
+	"files": [
+		"*.js"
+	],
+	"keywords": [],
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/cfware/babel-plugin-remove-ungap.git"
+	},
+	"bugs": {
+		"url": "https://github.com/cfware/babel-plugin-remove-ungap/issues"
+	},
+	"homepage": "https://github.com/cfware/babel-plugin-remove-ungap#readme",
+	"devDependencies": {
+		"@babel/core": "^7.2.2",
+		"ava": "^1.1.0",
+		"nyc": "^13.1.0",
+		"xo": "^0.24.0"
+	},
+	"nyc": {
+		"check-coverage": true,
+		"per-file": true,
+		"lines": 100,
+		"statements": 100,
+		"functions": 100,
+		"branches": 100,
+		"include": [
+			"*.js"
+		]
+	}
+}
