@@ -20,8 +20,8 @@ Add `remove-ungap` to your babelrc plugins if the ponyfills are not needed by yo
 browser target.  This could be due to only targeting modern browsers or because
 your project already polyfills the browser.
 
-This plugin currently only works on ES modules before bundling.  It can be run by
-`rollup-plugin-babel` before import statements are altered.
+This plugin works with CJS and ES modules before bundling.  It can be run by
+`rollup-plugin-babel` before import or require statements are altered.
 
 ### `exclude` option
 
@@ -42,23 +42,25 @@ This config will cause any import of `@ungap/essential-map` to be preserved.
 
 ### Modules that are removed
 
-* [@ungap/assign](https://github.com/ungap/assign)
-* [@ungap/array-iterator](https://github.com/ungap/array-iterator)
-* [@ungap/custom-event](https://github.com/ungap/custom-event)
-* [@ungap/essential-map](https://github.com/ungap/essential-map)
-* [@ungap/essential-set](https://github.com/ungap/essential-set)
-* [@ungap/essential-symbol](https://github.com/ungap/essential-symbol)
-* [@ungap/essential-weakset](https://github.com/ungap/essential-weakset)
-* [@ungap/event](https://github.com/ungap/event)
-* [@ungap/event-target](https://github.com/ungap/event-target)
-* [@ungap/import-node](https://github.com/ungap/import-node)
-* [@ungap/is-array](https://github.com/ungap/is-array)
-* [@ungap/map](https://github.com/ungap/map)
-* [@ungap/set](https://github.com/ungap/set)
-* [@ungap/template-literal](https://github.com/ungap/template-literal)
-* [@ungap/trim](https://github.com/ungap/trim)
-* [@ungap/weakmap](https://github.com/ungap/weakmap)
-* [@ungap/weakset](https://github.com/ungap/weakset)
+Module|Target|Declares variable
+-|-|-
+[@ungap/assign](https://github.com/ungap/assign)|Object.assign|Yes
+[@ungap/array-iterator](https://github.com/ungap/array-iterator)|Array.prototype[Symbol.iterator]|Yes
+[@ungap/custom-event](https://github.com/ungap/custom-event)|CustomEvent
+[@ungap/essential-map](https://github.com/ungap/essential-map)|Map
+[@ungap/essential-set](https://github.com/ungap/essential-set)|Set
+[@ungap/essential-symbol](https://github.com/ungap/essential-symbol)|Symbol
+[@ungap/essential-weakset](https://github.com/ungap/essential-weakset)|WeakSet
+[@ungap/event](https://github.com/ungap/event)|Event
+[@ungap/event-target](https://github.com/ungap/event-target)|EventTarget
+[@ungap/import-node](https://github.com/ungap/import-node)|document.importNode|Yes
+[@ungap/is-array](https://github.com/ungap/is-array)|Array.isArray|Yes
+[@ungap/map](https://github.com/ungap/map)|Map
+[@ungap/set](https://github.com/ungap/set)|Set
+[@ungap/template-literal](https://github.com/ungap/template-literal)|val => val|Yes
+[@ungap/trim](https://github.com/ungap/trim)|String.prototype.trim|Yes
+[@ungap/weakmap](https://github.com/ungap/weakmap)|WeakMap
+[@ungap/weakset](https://github.com/ungap/weakset)|WeakSet
 
 ### @ungap/create-content is altered
 

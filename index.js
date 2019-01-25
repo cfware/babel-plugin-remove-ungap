@@ -1,8 +1,6 @@
 'use strict';
 const path = require('path');
 
-const createContentSource = path.join('node_modules', '@ungap', 'create-content', 'esm', 'index.js');
-
 const replacements = {
 	'@ungap/assign': 'Object.assign',
 	'@ungap/array-iterator': 'Array.prototype[Symbol.iterator]',
@@ -22,6 +20,21 @@ const replacements = {
 	'@ungap/weakmap': 'WeakMap',
 	'@ungap/weakset': 'WeakSet'
 };
+
+function getModuleName(filename) {
+	if (!filename) {
+		return;
+	}
+
+	const parts = filename.split(path.sep);
+	if (!parts.includes('node_modules')) {
+		return;
+	}
+
+	return parts
+		.join(path.posix.sep)
+		.replace(/.*node_modules\//, '');
+}
 
 module.exports = ({types: t, template}) => ({
 	visitor: {
@@ -50,6 +63,38 @@ module.exports = ({types: t, template}) => ({
 				});
 			}
 		},
+		CallExpression(path) {
+			if (!path.parentPath.isVariableDeclarator() || !path.get('callee').isIdentifier({name: 'require'})) {
+				return;
+			}
+
+			const moduleName = path.get('arguments.0');
+			const idPath = path.parentPath.get('id');
+			if (!moduleName.isStringLiteral() || !idPath.isIdentifier()) {
+				return;
+			}
+
+			const globalName = this.ungapReplacements[moduleName.node.value];
+			if (!globalName) {
+				return;
+			}
+
+			const localName = idPath.node.name;
+			const variableDeclarationPath = path.parentPath.parentPath;
+			if (localName === globalName) {
+				variableDeclarationPath.remove();
+			} else if (/^[a-zA-Z]*$/.test(globalName)) {
+				this.bindings.push({
+					binding: variableDeclarationPath.scope.getBinding(localName),
+					globalName,
+					path: variableDeclarationPath
+				});
+				// Defer removal until Program.exit, the import needs to exist for the
+				// binding lookup to work.
+			} else {
+				path.replaceWith(template(globalName)().expression);
+			}
+		},
 		ImportDeclaration(path) {
 			const source = path.get('source');
 			const specifiers = path.get('specifiers');
@@ -71,10 +116,9 @@ module.exports = ({types: t, template}) => ({
 					globalName,
 					path
 				});
-				// Defer removal until Program.exit, it needs to exist for the
+				// Defer removal until Program.exit, the import needs to exist for the
 				// binding lookup to work.
 			} else {
-				// BUGBUG: figure out how to directly replace usage of localName
 				path.replaceWith(t.variableDeclaration('var', [
 					t.variableDeclarator(t.identifier(localName), template(globalName)().expression)
 				]));
@@ -91,13 +135,13 @@ module.exports = ({types: t, template}) => ({
 			});
 		},
 		VariableDeclarator(path) {
-			const {sourceFileName} = path.hub.file.opts.parserOpts;
+			const sourceFileName = getModuleName(path.hub.file.opts.parserOpts.sourceFileName);
 			if (!sourceFileName) {
 				return;
 			}
 
 			const {name} = path.node.id;
-			if (this.specialHandlers['@ungap/create-content'] && sourceFileName.endsWith(createContentSource) && name === 'HAS_CONTENT') {
+			if (this.specialHandlers['@ungap/create-content'] && sourceFileName.startsWith('@ungap/create-content') && name === 'HAS_CONTENT') {
 				path.get('init').replaceWith(t.booleanLiteral(true));
 			}
 		}
