@@ -8,11 +8,13 @@
 
 Remove @ungap ponyfills
 
+
 ### Install babel-plugin-remove-ungap
 
 ```sh
 npm i -D babel-plugin-remove-ungap
 ```
+
 
 ## Usage
 
@@ -22,6 +24,7 @@ your project already polyfills the browser.
 
 This plugin works with CJS and ES modules before bundling.  It can be run by
 `rollup-plugin-babel` before import or require statements are altered.
+
 
 ### `exclude` option
 
@@ -35,10 +38,31 @@ You can add the `exclude` option to block removal/processing of specific @ungap 
 				'@ungap/essential-map'
 			]
 		}]
+	]
 }
 ```
 
 This config will cause any import of `@ungap/essential-map` to be preserved.
+
+
+### `future` option
+
+Some `@ungap` polyfills are needed by most current browsers.  These are only processed
+if explicitly requested by the `future` option.  For example:
+```js
+{
+	plugins: [
+		['remove-ungap', {
+			future: [
+				'@ungap/from-entries'
+			]
+		}]
+	]
+}
+```
+
+Unknown modules are ignored.
+
 
 ### Modules that are removed
 
@@ -62,11 +86,20 @@ Module|Target|Declares variable
 [@ungap/weakmap](https://github.com/ungap/weakmap)|WeakMap
 [@ungap/weakset](https://github.com/ungap/weakset)|WeakSet
 
+
 ### @ungap/create-content is altered
 
 [@ungap/create-content](https://github.com/ungap/create-content) is altered so that
 `HAS_CONTENT` is constant true.  This allows minifiers to strip code that is not useed
 by modern browsers.
+
+
+### Modules that can be removed by the `future` option
+
+Module|Target|Declares variable
+-|-|-
+[@ungap/from-entries](https://github.com/ungap/from-entries)|Object.fromEntries|Yes
+
 
 ## Running tests
 

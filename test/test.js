@@ -3,7 +3,7 @@ import path from 'path';
 import test from 'ava';
 import {transform} from '@babel/core';
 
-import plugin, {replacements} from '..';
+import plugin, {replacements, futureReplacements} from '..';
 
 function babelTest(t, {source, result, opts, filename}) {
 	const babelrc = {
@@ -101,6 +101,107 @@ Object.entries(replacements).forEach(([module, statement]) => {
 	});
 });
 
+Object.entries(futureReplacements).forEach(([module, statement]) => {
+	const isBasic = /^[a-zA-Z]*$/.test(statement);
+	const opts = {
+		future: [module]
+	};
+
+	if (isBasic) {
+		test(`removes default import ${module} if requested`, babelTest, {
+			source: genSource(module, statement),
+			result: genResult(statement),
+			opts
+		});
+
+		test(`leaves default import ${module} if not requested`, babelTest, {
+			source: genSource(module, statement),
+			result: genSource(module, statement)
+		});
+
+		test(`replaces non-default import ${module} if requested`, babelTest, {
+			source: genSource(module, 'AlternativeName'),
+			result: genResult(statement),
+			opts
+		});
+
+		test(`leaves non-default import ${module} if not requested`, babelTest, {
+			source: genSource(module, 'AlternativeName'),
+			result: genSource(module, 'AlternativeName')
+		});
+
+		test(`removes default require ${module} if requested`, babelTest, {
+			source: genSource(module, statement, true),
+			result: genResult(statement),
+			opts
+		});
+
+		test(`leaves default require ${module} if not requested`, babelTest, {
+			source: genSource(module, statement, true),
+			result: genSource(module, statement, true)
+		});
+
+		test(`removes non-default require ${module} if requested`, babelTest, {
+			source: genSource(module, 'AlternativeName', true),
+			result: genResult(statement),
+			opts
+		});
+
+		test(`leaves non-default require ${module} if not requested`, babelTest, {
+			source: genSource(module, 'AlternativeName', true),
+			result: genSource(module, 'AlternativeName', true)
+		});
+	} else {
+		test(`replaces import ${module} if requested`, babelTest, {
+			source: genSource(module, 'testImportName'),
+			result: `
+				var testImportName = ${statement};
+				console.log(typeof testImportName);
+				testImportName();
+			`,
+			opts
+		});
+
+		test(`leaves import ${module} if not requested`, babelTest, {
+			source: genSource(module, 'testImportName'),
+			result: genSource(module, 'testImportName')
+		});
+
+		test(`replaces require ${module} if requested`, babelTest, {
+			source: genSource(module, 'testImportName', true),
+			result: `
+				var testImportName = ${statement};
+				console.log(typeof testImportName);
+				testImportName();
+			`,
+			opts
+		});
+
+		test(`leaves require ${module} if not requested`, babelTest, {
+			source: genSource(module, 'testImportName', true),
+			result: genSource(module, 'testImportName', true)
+		});
+	}
+
+	test(`exclude import ${module} after requesting it`, babelTest, {
+		source: genSource(module, 'testImportName'),
+		result: genSource(module, 'testImportName'),
+		opts: {
+			future: [module],
+			exclude: [module]
+		}
+	});
+
+	test(`exclude require ${module} after requesting it`, babelTest, {
+		source: genSource(module, 'testImportName', true),
+		result: genSource(module, 'testImportName', true),
+		opts: {
+			future: [module],
+			exclude: [module]
+		}
+	});
+});
+
 test('ignores imports without local name', babelTest, {
 	source: 'import "@ungap/weakmap";',
 	result: 'import "@ungap/weakmap";'
@@ -168,4 +269,12 @@ test('ignores HAS_CONTENT outside of node_modules', babelTest, {
 test('tolerates HAS_CONTENT in source without filename', babelTest, {
 	source: 'var HAS_CONTENT = \'content\' in document;',
 	result: 'var HAS_CONTENT = \'content\' in document;'
+});
+
+test('ignores unknown module in opts.future', babelTest, {
+	source: genSource('@ungap/this-module-will-never-exist', 'destVariable'),
+	result: genSource('@ungap/this-module-will-never-exist', 'destVariable'),
+	opts: {
+		future: ['@ungap/this-module-will-never-exist']
+	}
 });

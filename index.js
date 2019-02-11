@@ -21,6 +21,10 @@ const replacements = {
 	'@ungap/weakset': 'WeakSet'
 };
 
+const futureReplacements = {
+	'@ungap/from-entries': 'Object.fromEntries'
+};
+
 function getModuleName(filename) {
 	if (!filename) {
 		return;
@@ -45,6 +49,13 @@ module.exports = ({types: t, template}) => ({
 					'@ungap/create-content': true
 				};
 				this.ungapReplacements = {...replacements};
+
+				const future = this.opts.future || [];
+				future.forEach(module => {
+					if (futureReplacements[module]) {
+						this.ungapReplacements[module] = futureReplacements[module];
+					}
+				});
 
 				const exclude = this.opts.exclude || [];
 				exclude.forEach(module => {
@@ -148,3 +159,4 @@ module.exports = ({types: t, template}) => ({
 	}
 });
 module.exports.replacements = replacements;
+module.exports.futureReplacements = futureReplacements;
