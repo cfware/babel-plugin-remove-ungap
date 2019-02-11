@@ -134,8 +134,8 @@ module.exports = ({types: t, template}) => ({
 				path.replaceWith(template(globalName)());
 			});
 		},
-		VariableDeclarator(path) {
-			const sourceFileName = getModuleName(path.hub.file.opts.parserOpts.sourceFileName);
+		VariableDeclarator(path, state) {
+			const sourceFileName = getModuleName(state.file.opts.parserOpts.sourceFileName);
 			if (!sourceFileName) {
 				return;
 			}
