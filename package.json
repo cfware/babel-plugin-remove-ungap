@@ -27,7 +27,7 @@
 	"devDependencies": {
 		"@babel/core": "^7.2.2",
 		"@cfware/nyc": "^0.4.2",
-		"ava": "^1.2.1",
+		"ava": "^2.0.0",
 		"nyc": "^14.1.0",
 		"standard-version": "^6.0.1",
 		"xo": "^0.24.0"
