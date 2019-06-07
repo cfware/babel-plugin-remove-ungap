@@ -47,8 +47,9 @@ This config will cause any import of `@ungap/essential-map` to be preserved.
 
 ### `future` option
 
-Some `@ungap` polyfills are needed by most current browsers.  These are only processed
-if explicitly requested by the `future` option.  For example:
+Some `@ungap` polyfills are needed by most current browsers or did not exist when the
+current semver-major of this plugin was released.  These are only processed if explicitly
+requested by the `future` option.  For example:
 ```js
 {
 	plugins: [
@@ -99,6 +100,9 @@ by modern browsers.
 Module|Target|Declares variable
 -|-|-
 [@ungap/from-entries](https://github.com/ungap/from-entries)|Object.fromEntries|Yes
+[@ungap/global-this](https://github.com/ungap/global-this)|globalThis
+[@ungap/promise-any](https://github.com/ungap/promise-any)|Promise.any|Yes
+[@ungap/template-tag-literals](https://github.com/ungap/template-tag-literals)|(...args) => args|Yes
 
 
 ## Running tests

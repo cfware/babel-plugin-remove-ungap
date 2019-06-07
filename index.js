@@ -22,7 +22,10 @@ const replacements = {
 };
 
 const futureReplacements = {
-	'@ungap/from-entries': 'Object.fromEntries'
+	'@ungap/from-entries': 'Object.fromEntries',
+	'@ungap/global-this': 'globalThis',
+	'@ungap/promise-any': 'Promise.any',
+	'@ungap/template-tag-literals': '(...args) => args'
 };
 
 function getModuleName(filename) {
