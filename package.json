@@ -2,7 +2,6 @@
 	"name": "babel-plugin-remove-ungap",
 	"version": "1.0.0",
 	"description": "Remove @ungap ponyfills",
-	"main": "index.js",
 	"scripts": {
 		"release": "standard-version --sign",
 		"test": "xo && nyc ava -v"
@@ -12,9 +11,6 @@
 	},
 	"author": "Corey Farrell",
 	"license": "MIT",
-	"files": [
-		"index.js"
-	],
 	"keywords": [],
 	"repository": {
 		"type": "git",
