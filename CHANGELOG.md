@@ -1,3 +1,16 @@
+# Changelog
+
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+## [1.1.0](https://github.com/cfware/babel-plugin-remove-ungap/compare/v1.0.0...v1.1.0) (2019-06-07)
+
+
+### Features
+
+* Add new [@ungap](https://github.com/ungap) modules to `future` option ([278b715](https://github.com/cfware/babel-plugin-remove-ungap/commit/278b715))
+
+
+
 # [1.0.0](https://github.com/cfware/babel-plugin-remove-ungap/compare/v0.1.1...v1.0.0) (2019-02-12)
 
 
@@ -22,6 +35,3 @@
 
 
 # 0.1.0 (2019-01-23)
-
-
-
