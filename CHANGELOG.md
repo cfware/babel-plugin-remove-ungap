@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.1](https://github.com/cfware/babel-plugin-remove-ungap/compare/v1.1.0...v1.1.1) (2019-06-07)
+
+
+### Bug Fixes
+
+* Correct name of @ungap/template-tag-arguments ([f04cf17](https://github.com/cfware/babel-plugin-remove-ungap/commit/f04cf17))
+
+
+
 ## [1.1.0](https://github.com/cfware/babel-plugin-remove-ungap/compare/v1.0.0...v1.1.0) (2019-06-07)
 
 

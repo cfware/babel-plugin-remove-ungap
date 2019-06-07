@@ -1,6 +1,6 @@
 {
 	"name": "babel-plugin-remove-ungap",
-	"version": "1.1.0",
+	"version": "1.1.1",
 	"description": "Remove @ungap ponyfills",
 	"scripts": {
 		"release": "standard-version --sign",
