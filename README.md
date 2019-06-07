@@ -102,7 +102,7 @@ Module|Target|Declares variable
 [@ungap/from-entries](https://github.com/ungap/from-entries)|Object.fromEntries|Yes
 [@ungap/global-this](https://github.com/ungap/global-this)|globalThis
 [@ungap/promise-any](https://github.com/ungap/promise-any)|Promise.any|Yes
-[@ungap/template-tag-literals](https://github.com/ungap/template-tag-literals)|(...args) => args|Yes
+[@ungap/template-tag-arguments](https://github.com/ungap/template-tag-arguments)|(...args) => args|Yes
 
 
 ## Running tests
