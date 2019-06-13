@@ -24,6 +24,7 @@ const replacements = {
 const futureReplacements = {
 	'@ungap/from-entries': 'Object.fromEntries',
 	'@ungap/global-this': 'globalThis',
+	'@ungap/promise-all-settled': 'Promise.allSettled',
 	'@ungap/promise-any': 'Promise.any',
 	'@ungap/template-tag-arguments': '(...args) => args'
 };
