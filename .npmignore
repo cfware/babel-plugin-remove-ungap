@@ -5,3 +5,4 @@ nyc.config.js
 package
 .travis.yml
 test
+.github

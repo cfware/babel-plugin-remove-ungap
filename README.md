@@ -115,6 +115,12 @@ npm install
 npm test
 ```
 
+## `babel-plugin-remove-ungap` for enterprise
+
+Available as part of the Tidelift Subscription.
+
+The maintainers of `babel-plugin-remove-ungap` and thousands of other packages are working with Tidelift to deliver commercial support and maintenance for the open source dependencies you use to build your applications. Save time, reduce risk, and improve code health, while paying the maintainers of the exact dependencies you use. [Learn more.](https://tidelift.com/subscription/pkg/npm-babel-plugin-remove-ungap?utm_source=npm-babel-plugin-remove-ungap&utm_medium=referral&utm_campaign=enterprise&utm_term=repo)
+
 [npm-image]: https://img.shields.io/npm/v/babel-plugin-remove-ungap.svg
 [npm-url]: https://npmjs.org/package/babel-plugin-remove-ungap
 [travis-image]: https://travis-ci.org/cfware/babel-plugin-remove-ungap.svg?branch=master
