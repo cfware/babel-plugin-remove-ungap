@@ -11,22 +11,22 @@ const replacements = {
 	'@ungap/essential-weakset': 'WeakSet',
 	'@ungap/event': 'Event',
 	'@ungap/event-target': 'EventTarget',
+	'@ungap/from-entries': 'Object.fromEntries',
+	'@ungap/global-this': 'globalThis',
 	'@ungap/import-node': 'document.importNode',
 	'@ungap/is-array': 'Array.isArray',
 	'@ungap/map': 'Map',
+	'@ungap/promise-all-settled': 'Promise.allSettled',
 	'@ungap/set': 'Set',
 	'@ungap/template-literal': 'val => val',
+	'@ungap/template-tag-arguments': '(...args) => args',
 	'@ungap/trim': 'String.prototype.trim',
 	'@ungap/weakmap': 'WeakMap',
 	'@ungap/weakset': 'WeakSet'
 };
 
 const futureReplacements = {
-	'@ungap/from-entries': 'Object.fromEntries',
-	'@ungap/global-this': 'globalThis',
-	'@ungap/promise-all-settled': 'Promise.allSettled',
-	'@ungap/promise-any': 'Promise.any',
-	'@ungap/template-tag-arguments': '(...args) => args'
+	'@ungap/promise-any': 'Promise.any'
 };
 
 function getModuleName(filename) {

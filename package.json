@@ -4,10 +4,12 @@
 	"description": "Remove @ungap ponyfills",
 	"scripts": {
 		"release": "standard-version --sign",
-		"test": "xo && nyc ava -v"
+		"pretest": "xo",
+		"test": "nyc -s node test/test.js | tap-yaml-summary",
+		"posttest": "nyc report"
 	},
 	"engines": {
-		"node": ">=8"
+		"node": ">=10"
 	},
 	"author": "Corey Farrell",
 	"license": "MIT",
@@ -23,9 +25,10 @@
 	"devDependencies": {
 		"@babel/core": "^7.2.2",
 		"@cfware/nyc": "^0.6.0",
-		"ava": "^2.0.0",
+		"libtap": "^0.2.0",
 		"nyc": "^15.0.0",
 		"standard-version": "^7.0.0",
+		"tap-yaml-summary": "^0.1.0",
 		"xo": "^0.25.3"
 	}
 }

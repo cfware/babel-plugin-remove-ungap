@@ -1,11 +1,15 @@
-import path from 'path';
+'use strict';
+const path = require('path');
 
-import test from 'ava';
-import {transform} from '@babel/core';
+const t = require('libtap');
+const {transform} = require('@babel/core');
 
-import plugin, {replacements, futureReplacements} from '..';
+const plugin = require('..');
+const {replacements, futureReplacements} = plugin;
 
-function babelTest(t, {source, result, opts, filename}) {
+const test = (name, helper, ...args) => t.test(name, t => helper(t, ...args));
+
+async function babelTest(t, {source, result, opts, filename}) {
 	const babelrc = {
 		babelrc: false,
 		configFile: false,
@@ -15,7 +19,7 @@ function babelTest(t, {source, result, opts, filename}) {
 	const {code} = transform(source, {...babelrc, filename, plugins: [[plugin, opts]]});
 	const {code: actual} = transform(result, babelrc);
 
-	t.is(code, actual);
+	t.equal(code, actual);
 }
 
 function genSource(module, importDest, require = false) {

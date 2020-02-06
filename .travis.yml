@@ -1,5 +1,5 @@
 version: ~> 1.0
 import:
-  - cfware/travis-ci:node-supported.yml
+  - cfware/travis-ci:node-10-up.yml
   - cfware/travis-ci:os-all.yml
   - cfware/travis-ci:npm-no-cache.yml

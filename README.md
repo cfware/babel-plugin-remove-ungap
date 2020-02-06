@@ -78,11 +78,15 @@ Module|Target|Declares variable
 [@ungap/essential-weakset](https://github.com/ungap/essential-weakset)|WeakSet
 [@ungap/event](https://github.com/ungap/event)|Event
 [@ungap/event-target](https://github.com/ungap/event-target)|EventTarget
+[@ungap/from-entries](https://github.com/ungap/from-entries)|Object.fromEntries|Yes
+[@ungap/global-this](https://github.com/ungap/global-this)|globalThis
 [@ungap/import-node](https://github.com/ungap/import-node)|document.importNode|Yes
 [@ungap/is-array](https://github.com/ungap/is-array)|Array.isArray|Yes
 [@ungap/map](https://github.com/ungap/map)|Map
+[@ungap/promise-all-settled](https://github.com/ungap/promise-all-settled)|Promise.allSettled|Yes
 [@ungap/set](https://github.com/ungap/set)|Set
 [@ungap/template-literal](https://github.com/ungap/template-literal)|val => val|Yes
+[@ungap/template-tag-arguments](https://github.com/ungap/template-tag-arguments)|(...args) => args|Yes
 [@ungap/trim](https://github.com/ungap/trim)|String.prototype.trim|Yes
 [@ungap/weakmap](https://github.com/ungap/weakmap)|WeakMap
 [@ungap/weakset](https://github.com/ungap/weakset)|WeakSet
@@ -99,21 +103,8 @@ by modern browsers.
 
 Module|Target|Declares variable
 -|-|-
-[@ungap/from-entries](https://github.com/ungap/from-entries)|Object.fromEntries|Yes
-[@ungap/global-this](https://github.com/ungap/global-this)|globalThis
-[@ungap/promise-all-settled](https://github.com/ungap/promise-all-settled)|Promise.allSettled|Yes
 [@ungap/promise-any](https://github.com/ungap/promise-any)|Promise.any|Yes
-[@ungap/template-tag-arguments](https://github.com/ungap/template-tag-arguments)|(...args) => args|Yes
 
-
-## Running tests
-
-Tests are provided by xo and ava.
-
-```sh
-npm install
-npm test
-```
 
 ## `babel-plugin-remove-ungap` for enterprise
 
