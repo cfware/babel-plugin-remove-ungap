@@ -27,7 +27,7 @@
 		"@cfware/nyc": "^0.6.0",
 		"libtap": "^0.3.0",
 		"nyc": "^15.0.0",
-		"standard-version": "^7.0.0",
+		"standard-version": "^8.0.0",
 		"tap-yaml-summary": "^0.1.0",
 		"xo": "^0.25.3"
 	}
