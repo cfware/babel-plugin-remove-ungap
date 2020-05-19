@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0](https://www.github.com/cfware/babel-plugin-remove-ungap/compare/v1.2.0...v2.0.0) (2020-05-19)
+
+
+### ⚠ BREAKING CHANGES
+
+* Remove all supported ungap modules by default except
+
+### Bug Fixes
+
+* Require Node.js 10 ([a70cca3](https://www.github.com/cfware/babel-plugin-remove-ungap/commit/a70cca32d5df2a00a609a6c6008a4d936e11cc29))
+
 ## [1.2.0](https://github.com/cfware/babel-plugin-remove-ungap/compare/v1.1.1...v1.2.0) (2019-06-13)
 
 
