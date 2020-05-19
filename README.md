@@ -1,19 +1,6 @@
-# babel-plugin-remove-ungap
-
-[![Travis CI][travis-image]][travis-url]
-[![Greenkeeper badge][gk-image]](https://greenkeeper.io/)
-[![NPM Version][npm-image]][npm-url]
-[![NPM Downloads][downloads-image]][downloads-url]
-[![MIT][license-image]](LICENSE)
+# babel-plugin-remove-ungap [![NPM Version][npm-image]][npm-url]
 
 Remove @ungap ponyfills
-
-
-### Install babel-plugin-remove-ungap
-
-```sh
-npm i -D babel-plugin-remove-ungap
-```
 
 
 ## Usage
@@ -114,9 +101,3 @@ The maintainers of `babel-plugin-remove-ungap` and thousands of other packages a
 
 [npm-image]: https://img.shields.io/npm/v/babel-plugin-remove-ungap.svg
 [npm-url]: https://npmjs.org/package/babel-plugin-remove-ungap
-[travis-image]: https://travis-ci.org/cfware/babel-plugin-remove-ungap.svg?branch=master
-[travis-url]: https://travis-ci.org/cfware/babel-plugin-remove-ungap
-[gk-image]: https://badges.greenkeeper.io/cfware/babel-plugin-remove-ungap.svg
-[downloads-image]: https://img.shields.io/npm/dm/babel-plugin-remove-ungap.svg
-[downloads-url]: https://npmjs.org/package/babel-plugin-remove-ungap
-[license-image]: https://img.shields.io/npm/l/babel-plugin-remove-ungap.svg

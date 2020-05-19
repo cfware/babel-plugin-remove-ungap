@@ -1,8 +1,5 @@
 *.tgz
 coverage
-.nyc_output
-nyc.config.js
-package
-.travis.yml
+nyc.config.cjs
 test
 .github

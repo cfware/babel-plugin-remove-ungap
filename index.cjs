@@ -41,7 +41,7 @@ function getModuleName(filename) {
 
 	return parts
 		.join(path.posix.sep)
-		.replace(/.*node_modules\//, '');
+		.replace(/.*node_modules\//u, '');
 }
 
 module.exports = ({types: t, template}) => ({
@@ -98,7 +98,7 @@ module.exports = ({types: t, template}) => ({
 			const variableDeclarationPath = path.parentPath.parentPath;
 			if (localName === globalName) {
 				variableDeclarationPath.remove();
-			} else if (/^[a-zA-Z]*$/.test(globalName)) {
+			} else if (/^[a-zA-Z]*$/u.test(globalName)) {
 				this.bindings.push({
 					binding: variableDeclarationPath.scope.getBinding(localName),
 					globalName,
@@ -125,7 +125,7 @@ module.exports = ({types: t, template}) => ({
 
 			if (localName === globalName) {
 				path.remove();
-			} else if (/^[a-zA-Z]*$/.test(globalName)) {
+			} else if (/^[a-zA-Z]*$/u.test(globalName)) {
 				this.bindings.push({
 					binding: path.scope.getBinding(localName),
 					globalName,

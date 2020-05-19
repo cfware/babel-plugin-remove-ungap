@@ -5,36 +5,36 @@ const t = require('libtap');
 const {transform} = require('@babel/core');
 
 const plugin = require('..');
-const {replacements, futureReplacements} = plugin;
 
+const {replacements, futureReplacements} = plugin;
 const test = (name, helper, ...args) => t.test(name, t => helper(t, ...args));
 
-async function babelTest(t, {source, result, opts, filename}) {
+async function babelTest(t, {source, result, options, filename}) {
 	const babelrc = {
 		babelrc: false,
 		configFile: false,
 		compact: true
 	};
 
-	const {code} = transform(source, {...babelrc, filename, plugins: [[plugin, opts]]});
+	const {code} = transform(source, {...babelrc, filename, plugins: [[plugin, options]]});
 	const {code: actual} = transform(result, babelrc);
 
 	t.equal(code, actual);
 }
 
-function genSource(module, importDest, require = false) {
+function genSource(module, importDestination, require = false) {
 	if (require) {
 		return `
-			var ${importDest} = require("${module}");
-			console.log(typeof ${importDest});
-			${importDest}();
+			var ${importDestination} = require("${module}");
+			console.log(typeof ${importDestination});
+			${importDestination}();
 		`;
 	}
 
 	return `
-		import ${importDest} from "${module}";
-		console.log(typeof ${importDest});
-		${importDest}();
+		import ${importDestination} from "${module}";
+		console.log(typeof ${importDestination});
+		${importDestination}();
 	`;
 }
 
@@ -46,7 +46,7 @@ function genResult(statement) {
 }
 
 Object.entries(replacements).forEach(([module, statement]) => {
-	const isBasic = /^[a-zA-Z]*$/.test(statement);
+	const isBasic = /^[a-zA-Z]*$/u.test(statement);
 
 	if (isBasic) {
 		test(`removes default import ${module}`, babelTest, {
@@ -91,7 +91,7 @@ Object.entries(replacements).forEach(([module, statement]) => {
 	test(`exclude import ${module}`, babelTest, {
 		source: genSource(module, 'testImportName'),
 		result: genSource(module, 'testImportName'),
-		opts: {
+		options: {
 			exclude: [module]
 		}
 	});
@@ -99,15 +99,15 @@ Object.entries(replacements).forEach(([module, statement]) => {
 	test(`exclude require ${module}`, babelTest, {
 		source: genSource(module, 'testImportName', true),
 		result: genSource(module, 'testImportName', true),
-		opts: {
+		options: {
 			exclude: [module]
 		}
 	});
 });
 
 Object.entries(futureReplacements).forEach(([module, statement]) => {
-	const isBasic = /^[a-zA-Z]*$/.test(statement);
-	const opts = {
+	const isBasic = /^[a-zA-Z]*$/u.test(statement);
+	const options = {
 		future: [module]
 	};
 
@@ -115,7 +115,7 @@ Object.entries(futureReplacements).forEach(([module, statement]) => {
 		test(`removes default import ${module} if requested`, babelTest, {
 			source: genSource(module, statement),
 			result: genResult(statement),
-			opts
+			options
 		});
 
 		test(`leaves default import ${module} if not requested`, babelTest, {
@@ -126,7 +126,7 @@ Object.entries(futureReplacements).forEach(([module, statement]) => {
 		test(`replaces non-default import ${module} if requested`, babelTest, {
 			source: genSource(module, 'AlternativeName'),
 			result: genResult(statement),
-			opts
+			options
 		});
 
 		test(`leaves non-default import ${module} if not requested`, babelTest, {
@@ -137,7 +137,7 @@ Object.entries(futureReplacements).forEach(([module, statement]) => {
 		test(`removes default require ${module} if requested`, babelTest, {
 			source: genSource(module, statement, true),
 			result: genResult(statement),
-			opts
+			options
 		});
 
 		test(`leaves default require ${module} if not requested`, babelTest, {
@@ -148,7 +148,7 @@ Object.entries(futureReplacements).forEach(([module, statement]) => {
 		test(`removes non-default require ${module} if requested`, babelTest, {
 			source: genSource(module, 'AlternativeName', true),
 			result: genResult(statement),
-			opts
+			options
 		});
 
 		test(`leaves non-default require ${module} if not requested`, babelTest, {
@@ -163,7 +163,7 @@ Object.entries(futureReplacements).forEach(([module, statement]) => {
 				console.log(typeof testImportName);
 				testImportName();
 			`,
-			opts
+			options
 		});
 
 		test(`leaves import ${module} if not requested`, babelTest, {
@@ -178,7 +178,7 @@ Object.entries(futureReplacements).forEach(([module, statement]) => {
 				console.log(typeof testImportName);
 				testImportName();
 			`,
-			opts
+			options
 		});
 
 		test(`leaves require ${module} if not requested`, babelTest, {
@@ -190,7 +190,7 @@ Object.entries(futureReplacements).forEach(([module, statement]) => {
 	test(`exclude import ${module} after requesting it`, babelTest, {
 		source: genSource(module, 'testImportName'),
 		result: genSource(module, 'testImportName'),
-		opts: {
+		options: {
 			future: [module],
 			exclude: [module]
 		}
@@ -199,7 +199,7 @@ Object.entries(futureReplacements).forEach(([module, statement]) => {
 	test(`exclude require ${module} after requesting it`, babelTest, {
 		source: genSource(module, 'testImportName', true),
 		result: genSource(module, 'testImportName', true),
-		opts: {
+		options: {
 			future: [module],
 			exclude: [module]
 		}
@@ -253,7 +253,7 @@ test('exclude @ungap/create-content', babelTest, {
 	source: 'var HAS_CONTENT = \'content\' in document;',
 	result: 'var HAS_CONTENT = \'content\' in document;',
 	filename: path.join('node_modules', '@ungap', 'create-content', 'esm', 'index.js'),
-	opts: {
+	options: {
 		exclude: ['@ungap/create-content']
 	}
 });
@@ -275,10 +275,10 @@ test('tolerates HAS_CONTENT in source without filename', babelTest, {
 	result: 'var HAS_CONTENT = \'content\' in document;'
 });
 
-test('ignores unknown module in opts.future', babelTest, {
+test('ignores unknown module in options.future', babelTest, {
 	source: genSource('@ungap/this-module-will-never-exist', 'destVariable'),
 	result: genSource('@ungap/this-module-will-never-exist', 'destVariable'),
-	opts: {
+	options: {
 		future: ['@ungap/this-module-will-never-exist']
 	}
 });
